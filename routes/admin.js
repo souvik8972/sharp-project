@@ -13,10 +13,8 @@ const controllers=require("../controllers/main")
 router.get('/add-product',controllers.admin );
 
 // /admin/add-product => POST
-router.post('/add-product', (req, res, next) => {
-  products.push({ title: req.body.title });
-  res.redirect('/');
-});
+router.post('/add-product',controllers.addProduct);
 
 exports.routes = router;
 exports.products = products;
+module.exports=router

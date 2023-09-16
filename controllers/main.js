@@ -1,4 +1,9 @@
-const admin=(req, res, next) => {
+
+
+const Product=require("../model/product")
+
+
+exports.admin=(req, res, next) => {
     res.render('add-product', {
       pageTitle: 'Add Product',
       path: '/admin/add-product',
@@ -7,7 +12,26 @@ const admin=(req, res, next) => {
       activeAddProduct: true
     });
   }
-  module.exports={
-    admin
-  }
+  const products = [];
+ exports.addProduct= (req, res, next) => {
+    const product=new Product(req.body.title)
+    product.save()
   
+  res.redirect('/');
+}
+
+ exports.shop= (req, res, next) => {
+Product.fetchAll(products=>{
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true
+  });
+
+})
+ 
+  
+}
